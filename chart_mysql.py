@@ -40,4 +40,8 @@ def chart_all():
     except Exception as e:
         print(e)
 
+    finally:
+        cur.close()
+        conn.close()
+        
     return all
