@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    실시간 차트 <br><br>
+    <button id="allBTN" onclick="show_chart()"> 10위까지의 음악 목록 보기</button>
+    <br><hr><br>
+    
+    <div id="demo"></div>
+    <script>
+        function show_chart(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {  
+                    //  서버의 응답에 따른 로직을 여기에 작성
+                    data = this.responseText; //문자열...
+                    data = JSON.parse(data);
+
+                    let tableTag = `
+                    <table border="1" cellspacing="10">
+                        <tr><th>날짜</th><th>순위</th><th>가수</th><th>제목</th><th>코멘트수</th><th>좋아요수</th></tr>`;
+                    
+
+                    for(no in data){
+
+                        tableTag = tableTag + "<tr><td>" + data[no].today + "</th><th>" + data[no].songrank + "</th><th>" + data[no].artist + "</th><th>" + data[no].title + "</th><th>" + data[no].comment + "</th><th>" + data[no].songlike;
+                    }
+                    tableTag = tableTag +  `</table>`;
+                    
+                    document.getElementById("demo").innerHTML = tableTag;
+                }
+            };
+            xhttp.open("GET", "getchart");  
+            xhttp.send();
+        }
+
+    </script>
+</body>
+</html>
