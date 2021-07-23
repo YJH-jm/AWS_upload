@@ -13,10 +13,11 @@ def chart_all():
         cur = conn.cursor()
 
         try:
-            object 
+            
             cur.execute("select * from music_chart")
             rows = cur.fetchall()
             objects_list = []
+
             for row in rows:
                 d = collections.OrderedDict() # 항목이 추가된 순서를 기억하는 딕셔너리 서브 클래스
                 d["today"] = row[0]
@@ -26,11 +27,13 @@ def chart_all():
                 d["comment"] = row[4]
                 d["songlike"] = row[5]
                 objects_list.append(d)
-                print("***********************")
-                print(objects_list)
+                # print("***********************")
+                # print(objects_list)
+
             all = json.dumps(objects_list) # python 객체를 JOSN 문자열로 변환
-            print("_______all____________")
-            print(all)
+            # print("_______all____________")
+            # print(all)
+
         except Exception as e:
             print(e)
 
